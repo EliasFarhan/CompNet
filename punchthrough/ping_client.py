@@ -15,7 +15,7 @@ while pings < 11:
     # Ping to server
     message = 'test'
 
-    addr = ("127.0.0.1", 12000)
+    addr = ("51.91.122.121", 12000)
 
     # Send ping
     start = time.time()
