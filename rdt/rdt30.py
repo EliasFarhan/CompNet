@@ -5,7 +5,7 @@ import random
 class SenderRdt30(Sender):
     last_packet = ""
     current_sequence_nmb = 1
-    timeout = 0.05
+    timeout = 0.3
     msg_lock = threading.Lock()
     timeout_threads = []
 
@@ -109,14 +109,12 @@ class ChannelRdt30(Channel):
     def send_msg(self, data):
         # change data randomly
         if random.randint(0, 10) == 0:
-
-            print("[Response Corruption]")
+            print("[Msg Corruption] "+str(data[1]))
             data_array = bytearray(data)
             data_array[random.randint(0, len(data_array) - 1)] += 1
             data = data_array
         if random.randint(0, 10) == 0:
-
-            print("[Response Corruption]")
+            print("[Msg Loss] "+str(data[1]))
             self.data_exchanged += len(data)
             return
         super().send_msg(data)
@@ -125,13 +123,11 @@ class ChannelRdt30(Channel):
         # change data randomly
         if random.randint(0, 10) == 0:
 
-            print("[Response Corruption]")
             response_array = bytearray(response)
             response_array[random.randint(0, len(response_array) - 1)] += 1
             response = response_array
         if random.randint(0, 10) == 0:
 
-            print("[Response Corruption]")
             self.data_exchanged += len(response)
             return
         super().send_response(response)

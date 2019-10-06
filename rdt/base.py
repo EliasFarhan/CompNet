@@ -25,7 +25,7 @@ class Sender:
 
 
 class Channel:
-    delay = 0.01
+    delay = 0.1
     sender = None
     receiver = None
     threads_buffer = []
