@@ -7,7 +7,7 @@ class SenderGbn(Sender):
     n = 8
     msg_buffer = []
     pool_sema = threading.BoundedSemaphore(value=n)
-    timeout = 0.3
+    timeout = 0.5
     timeout_threads = []
     base = 1
     current_sequence_nmb = 0
