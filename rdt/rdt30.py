@@ -151,7 +151,7 @@ class SimulationRdt30(Simulation):
 
 
 def main():
-    sim = SimulationRdt30(sender=SenderRdt30(), channel=ChannelRdt30(), receiver=ReceiverRdt30())
+    sim = SimulationRdt30(sender=SenderRdt30(), channel=Channel(), receiver=ReceiverRdt30())
     sim.simulate()
 
 

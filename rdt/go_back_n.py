@@ -4,7 +4,7 @@ import threading
 
 
 class SenderGbn(Sender):
-    n = 8
+    n = 4
     msg_buffer = []
     pool_sema = threading.BoundedSemaphore(value=n)
     timeout = 0.3
@@ -29,6 +29,7 @@ class SenderGbn(Sender):
         packet[2:len(text_data) + 2] = text_data
         self.msg_buffer.append(packet)
         self.channel.send_msg(packet)
+        print("Sending packet: "+str(self.current_sequence_nmb))
         t = threading.Thread(target=self.timeout_resend, args=(packet,), daemon=True)
         t.start()
         self.timeout_threads.append(t)
@@ -36,7 +37,7 @@ class SenderGbn(Sender):
     def timeout_resend(self, packet):
         time.sleep(self.timeout)
         if self.base <= packet[1]:
-            print("[Error] Timeout, need to sent the last packet again")
+            print("[Error] Timeout, need to sent the last packet again. Packet: "+str(packet[1]))
             self.channel.send_msg(packet)
             t = threading.Thread(target=self.timeout_resend, args=(packet,), daemon=True)
             t.start()
@@ -112,7 +113,7 @@ class ReceiverGbn(Receiver):
 
 
 def main():
-    sim = SimulationRdt30(sender=SenderGbn(), receiver=ReceiverGbn(), channel=ChannelRdt30())
+    sim = SimulationRdt30(sender=SenderGbn(), receiver=ReceiverGbn(), channel=Channel())
     sim.simulate()
 
 
