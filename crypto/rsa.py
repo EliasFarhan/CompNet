@@ -1,6 +1,7 @@
 from crypto.base import CryptoCode
 from math import gcd
 import random
+import sys
 
 
 class PublicKey:
@@ -56,7 +57,7 @@ class RSACode(CryptoCode):
         if temp_phi == 1:
             return d + phi
         else:
-            print("Woot?{}".format((x1, x2, y1, temp_phi, phi)))
+            sys.stderr.write("[Error] Could not calculate the multiplicative inverse of {} with modulo {}\n".format(e, phi))
             return 1
 
     @staticmethod
