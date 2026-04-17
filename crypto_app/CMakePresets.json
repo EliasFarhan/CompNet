@@ -1,0 +1,51 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "default",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "/home/efarhan/Development/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_OVERLAY_PORTS": "${sourceDir}/overlay-ports",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "release",
+      "binaryDir": "${sourceDir}/build-release",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "/home/efarhan/Development/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_OVERLAY_PORTS": "${sourceDir}/overlay-ports",
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "emscripten",
+      "binaryDir": "${sourceDir}/build-emscripten",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "/home/efarhan/Development/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "/home/efarhan/Development/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake",
+        "VCPKG_OVERLAY_PORTS": "${sourceDir}/overlay-ports",
+        "VCPKG_TARGET_TRIPLET": "wasm32-emscripten",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "environment": {
+        "EMSDK": "/home/efarhan/Development/emsdk"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default",
+      "configurePreset": "default"
+    },
+    {
+      "name": "release",
+      "configurePreset": "release"
+    },
+    {
+      "name": "emscripten",
+      "configurePreset": "emscripten"
+    }
+  ]
+}
